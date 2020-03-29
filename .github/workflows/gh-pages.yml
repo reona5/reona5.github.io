@@ -3,15 +3,13 @@ name: github pages
 on:
   push:
     branches:
-      - master
+      - source
 
 jobs:
   build-deploy:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-        with:
-          submodules: true
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
@@ -26,3 +24,4 @@ jobs:
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./public
+          publish_branch: master
