@@ -7,20 +7,25 @@ on:
 
 jobs:
   build-deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Source
+        uses: actions/checkout@v2
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+      - name: Clone submodule
+        run: git submodule update --init --recursive
+
+      - name: Hugo Setup
+        uses: peaceiris/actions-hugo@v2.4.8
         with:
-          hugo-version: 'latest'
+          hugo-version: latest
+          extended: true
 
-      - name: Build
-        run: hugo --minify
+      - name: Build Hugo
+        run: hugo -v
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v3.5.6
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./public

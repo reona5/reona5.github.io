@@ -1,16 +1,17 @@
-baseURL = "http://reona5.github.io"
+baseURL = "https://reona5.github.io/"
 languageCode = "en-us"
 title = "Reona Shimada"
 theme = "hermit"
-# enableGitInfo = true
+canonifyurls = true
+enableGitInfo = true
 pygmentsCodefences  = true
 pygmentsUseClasses  = true
-# hasCJKLanguage = true  # If Chinese/Japanese/Korean is your main content language, enable this to make wordCount works right.
+hasCJKLanguage = true  # If Chinese/Japanese/Korean is your main content language, enable this to make wordCount works right.
 rssLimit = 10  # Maximum number of items in the RSS feed.
 copyright = "Copyright since 2020 Reona Shimada All Rights Reserved." # This message is only used by the RSS template.
 enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/functions/emojify/
-# googleAnalytics = "UA-123-45"
-# disqusShortname = "yourdiscussshortname"
+googleAnalytics = "UA-146202958-1"
+disqusShortname = "reona5-github-io"
 
 [author]
   name = "Reona Shimada"
@@ -36,7 +37,7 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
   themeColor = "#494f5c"
 
   homeSubtitle = "This is my portfolio website."
-  footerCopyright = ' &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
+  footerCopyright = ' All Rights Reserved.'
   # bgImg = ""  # Homepage background-image URL
 
   # Prefix of link to the git commit detail page. GitInfo must be enabled.
@@ -69,11 +70,11 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
 [menu]
 
   [[menu.main]]
-    name = "AboutMe"
-    url = "aboutme/"
-    weight = 20
+    name = "Blog"
+    url = "content/posts/"
+    weight = 10
 
   [[menu.main]]
-    name = "Blog"
-    url = "posts/"
-    weight = 10
+    name = "Profile"
+    url = "content/pages/profile/"
+    weight = 20
