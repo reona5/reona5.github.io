@@ -71,10 +71,10 @@ disqusShortname = "reona5-github-io"
 
   [[menu.main]]
     name = "Blog"
-    url = "content/posts/"
+    url = "posts/"
     weight = 10
 
   [[menu.main]]
     name = "Profile"
-    url = "content/pages/profile/"
+    url = "pages/profile/"
     weight = 20
