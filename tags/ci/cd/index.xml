@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Reona Shimada</title>
-    <link>https://reona5.github.io/</link>
-    <description>Recent content on Reona Shimada</description>
+    <title>ci/cd on Reona Shimada</title>
+    <link>https://reona5.github.io/tags/ci/cd/</link>
+    <description>Recent content in ci/cd on Reona Shimada</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyright since 2020 Reona Shimada All Rights Reserved.</copyright>
-    <lastBuildDate>Tue, 31 Mar 2020 23:54:54 +0900</lastBuildDate>
     
-	<atom:link href="https://reona5.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://reona5.github.io/tags/ci/cd/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,15 +18,6 @@
       
       <guid>https://reona5.github.io/posts/2020/0331_github_page_hugo/</guid>
       <description>Webに関わる開発をしている方であれば、ソースコードのホスティングにGitHubを利用している人は多いのではないでしょうか。 GitHubには</description>
-    </item>
-    
-    <item>
-      <title>Profile</title>
-      <link>https://reona5.github.io/pages/profile/</link>
-      <pubDate>Mon, 30 Mar 2020 03:35:43 +0900</pubDate>
-      
-      <guid>https://reona5.github.io/pages/profile/</guid>
-      <description> Reona Shimada From kanazawa Web/iOS Developer Ruby on Rails, SwiftUI  </description>
     </item>
     
   </channel>
