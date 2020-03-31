@@ -21,6 +21,12 @@ disqusShortname = "reona5-github-io"
   # noreferrerLinks = true
   # nofollowLinks = true
 
+[markup]
+    [markup.tableOfContents]
+        endLevel = 2
+        ordered = true
+        startLevel = 2
+
 [taxonomies]
   tag = "tags"
   # Categories are disabled by default.
