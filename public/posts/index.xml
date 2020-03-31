@@ -46,7 +46,7 @@
 <p>最初にGitHub Actionsを設定していきます。
 GitHubで今回使用するリポジトリを作成し、リポジトリメニューの中からActionsを選択します。
 言語によっては既にあるワークフローを使うこともできるみたいですね。</p>
-<p><img src="images/github_sc1.png" alt="githubsc1"></p>
+<p><img src="https://raw.githubusercontent.com/reona5/reona5.github.io/source/images/github_sc1.png" alt="githubsc1"></p>
 <p>今回は右上にある <code>Set up a workflow yourself</code> を選択します。</p>
 <p>すると左側にyamlファイルを記述するエディタが表示されます。Marketplaceには既に用意されているActionsがありますので、こちらを使ってもいいです。基本的に構文ミスはエディタが指摘してくれますが、その他の細かい部分は右側にあるDocumentationに従い設定を進めましょう。
 今回はスター数の多かった<a href="https://github.com/marketplace/actions/hugo-setup">Hugo Setup</a>を使うことにしました。</p>

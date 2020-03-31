@@ -22,10 +22,10 @@ disqusShortname = "reona5-github-io"
   # nofollowLinks = true
 
 [markup]
-    [markup.tableOfContents]
-        endLevel = 2
-        ordered = true
-        startLevel = 2
+  [markup.tableOfContents]
+      endLevel = 2
+      ordered = true
+      startLevel = 2
 
 [taxonomies]
   tag = "tags"
