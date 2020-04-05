@@ -6,8 +6,69 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>Copyright since 2020 Reona Shimada All Rights Reserved.</copyright>
-		<lastBuildDate>Tue, 31 Mar 2020 23:54:54 +0900</lastBuildDate>
+		<lastBuildDate>Sun, 05 Apr 2020 23:16:07 +0900</lastBuildDate>
 		<atom:link href="https://reona5.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>[Rails] ActiveInteractionについて</title>
+			<link>https://reona5.github.io/posts/2020/0405_rails_active_interaction_gem/</link>
+			<pubDate>Sun, 05 Apr 2020 23:16:07 +0900</pubDate>
+			
+			<guid>https://reona5.github.io/posts/2020/0405_rails_active_interaction_gem/</guid>
+			<description>最近業務でよく使うActiveInteractionというGemについて、利用する目的を落とし込みたく、このGemを使うことでどのようなメリ</description>
+			<content type="html"><![CDATA[<p>最近業務でよく使う<a href="https://github.com/AaronLasseigne/active_interaction">ActiveInteraction</a>というGemについて、利用する目的を落とし込みたく、このGemを使うことでどのようなメリットがあるのかを深堀りしようと記事にすることにしました。</p>
+<p>GitHubリポジトリにはこのように書いてあります。</p>
+<blockquote>
+<p>ActiveInteraction manages application-specific business logic. It&rsquo;s an implementation of the command pattern in Ruby.</p>
+</blockquote>
+<p>どうやら<a href="https://www.techscore.com/tech/DesignPattern/Command.html/">デザインパターンの一種であるcommandパターン</a>が使われているようです。</p>
+<p>また、このCommandパターンについては、</p>
+<blockquote>
+<p>Commandパターンでは、ある特定の動作を実行するオブジェクトを構築します。「特定」という部分が重要です。Commandパターンのコマンドのインスタンスはどの社員の住所についても変更する方法を知っているわけではありません。代わりに、ある特定の社員を新しい住所に移す方法を知っています。</p>
+</blockquote>
+<blockquote>
+<p>コマンドは何かを行う方法を知っているだけで、それを実行する対象の状態には関心がありません。</p>
+</blockquote>
+<p>参考：Rubyによるデザインパターン</p>
+<p>この表現がわかりやすかったです。
+特定のビジネスロジックをコマンドとして作成し、通常の実行メソッドと併せて元に戻す（アンドゥ）メソッドも用意することができます。ActiveRecordのマイグレーション機能はCommandパターンの実装の典型例です。</p>
+<p>話が脱線しましたが、以上のCommandパターンをActiveInteractionクラスを継承することで実現できるようです。</p>
+<p>ActiveInteractionを使うことで得られるメリットについて考えていきます。</p>
+<h2 id="1-fat-controllerになることを未然に防ぐことができる">1. Fat Controllerになることを未然に防ぐことができる</h2>
+<p>コントローラは複雑になりがちであり、コード量が段々と膨れ上がる傾向があります。</p>
+<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">create</span>
+  <span class="n">service</span> <span class="o">=</span> <span class="no">CreateUserService</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">user_params</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">service</span><span class="o">.</span><span class="n">valid?</span>
+    <span class="n">head</span> <span class="ss">:created</span>
+  <span class="k">else</span>
+    <span class="n">render</span> <span class="n">service</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="ss">status</span><span class="p">:</span> <span class="ss">:bad_request</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><p>ActiveInteractionは、コントローラとは別にビジネスロジックを記述しておく場所を提供してくれます。
+ActiveInteractionクラスを継承したServiceクラスに特定のビジネスロジックを書いておけば、コントローラでは<code>run</code>メソッドで呼び出すだけで済むようになるので、簡潔になりますね。(リファレンスでは <code>app/interactions/</code> 配下に配置することを推奨しています)</p>
+<h2 id="2-ロジックを分離できるためテストが書きやすくなる">2. ロジックを分離できるため、テストが書きやすくなる</h2>
+<p>これは1つ目のメリットに繋がるものではありますが、ロジックに集中したテストが書けるのでテスト単位が小さくなるのでテストが書きやすくなります。
+業務ではサービスクラスのテスト、コントローラのテストを分けておりますが、2つに分けることでテストも簡潔になりますし、どういったコードの動きを担保したいのかがよりわかりやすくなるので、コントローラと同様に保守性の高いテストコードを保つことができます。</p>
+<h2 id="3-より安全なコードを保つことができる">3. より安全なコードを保つことができる</h2>
+<p>ActiveInteractionは型安全性を提供しているので、型の不一致によるバグが起こりにくく安全なコードを保つことができます。また、使用頻度は高くありませんが、ActiveModelと同様の書き方でバリデーションを定義することもできます。</p>
+<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Users</span><span class="o">::</span><span class="no">SignUpService</span> <span class="o">&lt;</span> <span class="no">ActiveInteraction</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">string</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:email</span><span class="p">,</span> <span class="n">password</span>
+
+  <span class="k">def</span> <span class="nf">execute</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="k">unless</span> <span class="n">user</span>
+      <span class="n">errors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="ss">:message</span><span class="p">,</span> <span class="s2">&#34;値が不正です&#34;</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><p>上記のコードでは、inputsで受け入れる3つのStringパラメータを定義しています。</p>
+<p>個人的に型の恩恵が受けられるのは、バグを発生させにくいコードを書くことに繋がると思っているので非常に大きなメリットだと思っています。型の種類がなかなか豊富で柔軟にロジックが記述できそうなのもいいですね。</p>
+<h2 id="最後に">最後に</h2>
+<p>ActiveInteractionを使ってロジックを分離して書くことで、保守性や再利用性の高いコードが実現できそうですね。
+<a href="https://github.com/AaronLasseigne/active_interaction">ActiveInteractionのREADME</a>は非常に充実しており、基本的な使い方から発展的な使い方まで書いてあるので、使い方に迷った際には迷わずREADMEを参照でよさそうです。</p>
+]]></content>
+		</item>
 		
 		<item>
 			<title>GitHub Pages × Hugoで技術ブログを始めた</title>
