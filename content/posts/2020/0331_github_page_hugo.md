@@ -1,11 +1,11 @@
 ---
 title: "GitHub Pages × Hugoで技術ブログを始めた"
+date: 2020-03-31T23:54:54+09:00
+doc: true
 tags: [
   "github",
   "ci/cd",
 ]
-date: 2020-03-31T23:54:54+09:00
-doc: true
 ---
 
 Webに関わる開発をしている方であれば、ソースコードのホスティングに[GitHub](https://github.co.jp)を利用している人は多いのではないでしょうか。
