@@ -6,8 +6,78 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>Copyright since 2020 Reona Shimada All Rights Reserved.</copyright>
-		<lastBuildDate>Sun, 05 Apr 2020 23:16:07 +0900</lastBuildDate>
+		<lastBuildDate>Fri, 24 Apr 2020 17:13:14 +0900</lastBuildDate>
 		<atom:link href="https://reona5.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>認可・認証の概要まとめ</title>
+			<link>https://reona5.github.io/posts/2020/0424_oauth/</link>
+			<pubDate>Fri, 24 Apr 2020 17:13:14 +0900</pubDate>
+			
+			<guid>https://reona5.github.io/posts/2020/0424_oauth/</guid>
+			<description>RailsでSNS連携のAPIを実装する機会があり、認可・認証に関して勉強する機会があったので簡単に概要を書いていきます。 認可・認証の技術で</description>
+			<content type="html"><![CDATA[<p>RailsでSNS連携のAPIを実装する機会があり、認可・認証に関して勉強する機会があったので簡単に概要を書いていきます。
+認可・認証の技術ではOAuth・OpenID Connect等があります。これらについては以下の記事が図を用いて非常にわかりやすくまとめられています。</p>
+<p><a href="https://qiita.com/TakahikoKawasaki/items/e37caf50776e00e733be">(Qiita) 一番分かりやすい OAuth の説明</a></p>
+<p><a href="https://qiita.com/TakahikoKawasaki/items/498ca08bbfcc341691fe">(Qiita) 一番分かりやすい OpenID Connect の説明</a></p>
+<p>業務ではTwitter・Facebook・Googleの連携機能をサーバーサイドAPIとして実装しました。具体的には、取得したユーザー情報を用いてアカウント登録・ログイン、またログインができるように連携をする機能を追加しました。</p>
+<p>TwitterではOAuth 1.0, FacebookではOAuth 2.0, GoogleではOpenID Connectが使われています。（実現したい機能によっては異なる場合もあります。）</p>
+<p>これらを分類すると、</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="center">認可</th>
+<th align="center">認証</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OAuth 1.0</td>
+<td align="center">○</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>OAuth 2.0</td>
+<td align="center">○</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>OpenID Connect</td>
+<td align="center">○</td>
+<td align="center">○</td>
+</tr>
+</tbody>
+</table>
+<p>となっております。</p>
+<p><strong>認可</strong> とは、</p>
+<ul>
+<li>所有リソースに対するアクセス権を代理人に与えること</li>
+<li>アクセス権を与えられた代理人によるリソースの操作を可能とする鍵を渡すようなイメージ</li>
+</ul>
+<p><strong>認証</strong> とは、</p>
+<ul>
+<li>本人であることの証明を得ること</li>
+<li>IDカードなどの本人が特定できる証明書によるものなどがある</li>
+<li>ポピュラーなものだとiPhoneの指紋認証やFaceIDによる顔認証システムなど</li>
+</ul>
+<p>SNSを利用したアカウント登録処理の一例としては以下のとおりです。</p>
+<ol>
+<li>ユーザーがSNSを用いたアカウント登録をクライアントアプリに要求する（e.g. [Twitterでアカウント登録]ボタン押下）</li>
+<li>クライアントAPIがSNSの認可サーバーにアクセストークン(リソース操作を可能にする鍵)を要求する</li>
+<li>ユーザーがSNSログインをすることで、認可サーバーがアクセストークンを発行（認可処理）</li>
+<li>アクセストークンがクライアントAPIからサーバーサイドAPIに渡される</li>
+<li>ユーザー情報取得のエンドポイントにアクセスし、取得した情報を元にアカウントを作成し永続化する</li>
+<li>JWTが発行され、クライアントアプリに渡される</li>
+</ol>
+<p>JWTは <code>JSON Web Token</code> の略で、発行してクライアントに返すことでSession IDをサーバーで保管する必要がなくなります。
+詳しく落とし込めていない部分もあるので、別途記事にまとめたいですね…
+Twitter, Facebook, Googleで実装や再現方法に関してもバラバラだったので、それらに関しても個別でまとめていきたいと思います。</p>
+<p>以上、認可・認証に関する簡単なまとめでした。
+特にRailsに関しては、あまり仕組みを知らずともDeviceやOmniauth等のGemがよしなにSNS連携の機能を実現してくれるので、今回はそれらを使わずに機能を実装したことで非常に勉強になりました。
+今回作ったAPIに対応するクライアントAPIもSwiftを使って自分で実装することになりそうなので、非常に楽しみです。</p>
+]]></content>
+		</item>
 		
 		<item>
 			<title>[Rails] ActiveInteractionについて</title>

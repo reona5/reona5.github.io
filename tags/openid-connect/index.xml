@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OpenID Connect on Reona Shimada</title>
+    <link>https://reona5.github.io/tags/openid-connect/</link>
+    <description>Recent content in OpenID Connect on Reona Shimada</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright since 2020 Reona Shimada All Rights Reserved.</copyright>
+    <lastBuildDate>Fri, 24 Apr 2020 17:13:14 +0900</lastBuildDate>
+    
+	<atom:link href="https://reona5.github.io/tags/openid-connect/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>認可・認証の概要まとめ</title>
+      <link>https://reona5.github.io/posts/2020/0424_oauth/</link>
+      <pubDate>Fri, 24 Apr 2020 17:13:14 +0900</pubDate>
+      
+      <guid>https://reona5.github.io/posts/2020/0424_oauth/</guid>
+      <description>RailsでSNS連携のAPIを実装する機会があり、認可・認証に関して勉強する機会があったので簡単に概要を書いていきます。 認可・認証の技術で</description>
+    </item>
+    
+  </channel>
+</rss>
