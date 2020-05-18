@@ -6,8 +6,52 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>Copyright since 2020 Reona Shimada All Rights Reserved.</copyright>
-		<lastBuildDate>Fri, 24 Apr 2020 17:13:14 +0900</lastBuildDate>
+		<lastBuildDate>Mon, 18 May 2020 11:38:45 +0900</lastBuildDate>
 		<atom:link href="https://reona5.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>静的サイトジェネレータで作成したブログを検索結果に表示する</title>
+			<link>https://reona5.github.io/posts/2020/0518_google_seo/</link>
+			<pubDate>Mon, 18 May 2020 11:38:45 +0900</pubDate>
+			
+			<guid>https://reona5.github.io/posts/2020/0518_google_seo/</guid>
+			<description>このブログはHugoを使って作成したのですが、SEO関連の設定が中途半端だったので今回一通り設定しました。 設定したのは以下の2つです。 Google Analytics Google</description>
+			<content type="html"><![CDATA[<p>このブログは<a href="https://reona5.github.io/posts/2020/0331_github_page_hugo/">Hugoを使って作成した</a>のですが、SEO関連の設定が中途半端だったので今回一通り設定しました。</p>
+<p>設定したのは以下の2つです。</p>
+<ul>
+<li><a href="https://marketingplatform.google.com/about/analytics/">Google Analytics</a></li>
+<li><a href="https://search.google.com/search-console/about">Google Search Console</a></li>
+</ul>
+<p>事前にGoogleのアカウントは作っておきましょう。</p>
+<h2 id="google-analytics">Google Analytics</h2>
+<p>アクセス解析ができます。Webサイト運営においてはもはや必須ツールですね。
+導入は非常に簡単なので、サクッとやっちゃいましょう。</p>
+<ol>
+<li>
+<p>Google Analyticsアカウントを作成する
+アカウントを作成することで生成されるトラッキングIDを利用します。
+※ Google Analytics管理画面 &gt; 管理 &gt; プロパティ設定 からも確認できます。</p>
+</li>
+<li>
+<p>Hugoリポジトリの <code>config.toml</code> に1行追加する</p>
+</li>
+</ol>
+<pre><code>googleAnalytics = &quot;トラッキングID&quot;
+</code></pre><ol start="3">
+<li>リモートリポジトリに反映、デプロイする</li>
+</ol>
+<p>これで設定完了です。トップページにアクセスして、Google Analyticsのリアルタイムアクティブユーザーに反映されていれば成功です。
+<img src="/images/2020-05-18-12-06-11.png" alt=""></p>
+<h2 id="google-search-console">Google Search Console</h2>
+<p><img src="/images/2020-05-18-12-30-46.png" alt=""></p>
+<ol start="5">
+<li>サイトマップのURLを入力する
+Hugoのプロジェクトであれば、public/sitemap.xmlが自動生成されるので、 <code>sitemap/xml</code> を入力すればOK</li>
+</ol>
+<p>以上です。設定後、Google Analyticsで <code>集客 &gt; Search Console &gt; 検索クエリ</code> から Google Search Consoleとの紐付けを行えば、より精密に分析ができるみたいなので、こちらも設定しておきましょう。</p>
+<p>翌日には検索結果に反映され、分析結果も表示されるはずです。</p>
+]]></content>
+		</item>
 		
 		<item>
 			<title>認可・認証の概要まとめ</title>

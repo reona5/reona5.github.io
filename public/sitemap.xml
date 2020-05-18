@@ -3,27 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://reona5.github.io/posts/</loc>
+    <lastmod>2020-05-18T11:38:45+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://reona5.github.io/</loc>
+    <lastmod>2020-05-18T11:38:45+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://reona5.github.io/tags/seo/</loc>
+    <lastmod>2020-05-18T11:38:45+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://reona5.github.io/tags/</loc>
+    <lastmod>2020-05-18T11:38:45+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://reona5.github.io/posts/2020/0518_google_seo/</loc>
+    <lastmod>2020-05-18T11:38:45+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://reona5.github.io/tags/oauth/</loc>
     <lastmod>2020-04-30T01:58:19+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://reona5.github.io/tags/openid-connect/</loc>
-    <lastmod>2020-04-30T01:58:19+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://reona5.github.io/posts/</loc>
-    <lastmod>2020-04-30T01:58:19+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://reona5.github.io/</loc>
-    <lastmod>2020-04-30T01:58:19+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://reona5.github.io/tags/</loc>
     <lastmod>2020-04-30T01:58:19+09:00</lastmod>
   </url>
   
