@@ -27,26 +27,40 @@
 <p>アクセス解析ができます。Webサイト運営においてはもはや必須ツールですね。
 導入は非常に簡単なので、サクッとやっちゃいましょう。</p>
 <ol>
-<li>
-<p>Google Analyticsアカウントを作成する
-アカウントを作成することで生成されるトラッキングIDを利用します。
-※ Google Analytics管理画面 &gt; 管理 &gt; プロパティ設定 からも確認できます。</p>
-</li>
-<li>
-<p>Hugoリポジトリの <code>config.toml</code> に1行追加する</p>
-</li>
+<li>Google Analyticsアカウントを作成する
+アカウントを作成することで生成されるトラッキングIDを利用します。</li>
+</ol>
+<p>※ Google Analytics管理画面 &gt; 管理 &gt; プロパティ設定 からも確認できます。</p>
+<ol start="2">
+<li>Hugoリポジトリの <code>config.toml</code> に1行追加する</li>
 </ol>
 <pre><code>googleAnalytics = &quot;トラッキングID&quot;
 </code></pre><ol start="3">
 <li>リモートリポジトリに反映、デプロイする</li>
 </ol>
 <p>これで設定完了です。トップページにアクセスして、Google Analyticsのリアルタイムアクティブユーザーに反映されていれば成功です。
-<img src="/images/2020-05-18-12-06-11.png" alt=""></p>
+<img src="../images/2020-05-18-12-06-11.png" alt=""></p>
 <h2 id="google-search-console">Google Search Console</h2>
-<p><img src="/images/2020-05-18-12-30-46.png" alt=""></p>
-<ol start="5">
-<li>サイトマップのURLを入力する
-Hugoのプロジェクトであれば、public/sitemap.xmlが自動生成されるので、 <code>sitemap/xml</code> を入力すればOK</li>
+<p>Google検索結果に反映し、掲載順位の改善等を行ってくれます。ブログを公開しているならこちらも必須の設定ですね。</p>
+<ol>
+<li>
+<p>URLプレフィックスにサイトURLを入力する</p>
+</li>
+<li>
+<p>HTMLファイルをダウンロードし、リポジトリに配置する。 e.g. <code>static/googlexxxxxxx.html</code>
+<img src="../images/2020-05-18-12-28-03.png" alt=""></p>
+</li>
+<li>
+<p>リモートリポジトリに反映、デプロイする</p>
+</li>
+<li>
+<p>HTMLファイルにアクセスができるようになるので、確認を押すと以下の画面が表示される
+<img src="../images/2020-05-18-12-30-46.png" alt=""></p>
+</li>
+<li>
+<p>サイトマップのURLを入力する
+Hugoのプロジェクトであれば、public/sitemap.xmlが自動生成されるので、 <code>sitemap/xml</code> を入力すればOK</p>
+</li>
 </ol>
 <p>以上です。設定後、Google Analyticsで <code>集客 &gt; Search Console &gt; 検索クエリ</code> から Google Search Consoleとの紐付けを行えば、より精密に分析ができるみたいなので、こちらも設定しておきましょう。</p>
 <p>翌日には検索結果に反映され、分析結果も表示されるはずです。</p>
@@ -221,7 +235,7 @@ ActiveInteractionクラスを継承したServiceクラスに特定のビジネ�
 <p>最初にGitHub Actionsを設定していきます。
 GitHubで今回使用するリポジトリを作成し、リポジトリメニューの中からActionsを選択します。
 言語によっては既にあるワークフローを使うこともできるみたいですね。</p>
-<p><img src="https://raw.githubusercontent.com/reona5/reona5.github.io/source/images/github_sc1.png" alt="githubsc1"></p>
+<p><img src="../images/github_sc1.png" alt="githubsc1"></p>
 <p>今回は右上にある <code>Set up a workflow yourself</code> を選択します。</p>
 <p>すると左側にyamlファイルを記述するエディタが表示されます。Marketplaceには既に用意されているActionsがありますので、こちらを使ってもいいです。基本的に構文ミスはエディタが指摘してくれますが、その他の細かい部分は右側にあるDocumentationに従い設定を進めましょう。
 今回はスター数の多かった<a href="https://github.com/marketplace/actions/hugo-setup">Hugo Setup</a>を使うことにしました。</p>
