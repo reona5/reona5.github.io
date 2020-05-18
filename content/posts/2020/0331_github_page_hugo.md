@@ -40,7 +40,7 @@ CI/CDツールとしては[CircleCI](https://circleci.com/ja/)がよく使われ
 GitHubで今回使用するリポジトリを作成し、リポジトリメニューの中からActionsを選択します。
 言語によっては既にあるワークフローを使うこともできるみたいですね。
 
-![githubsc1](https://raw.githubusercontent.com/reona5/reona5.github.io/source/images/github_sc1.png)
+![githubsc1](../images/github_sc1.png)
 
 今回は右上にある `Set up a workflow yourself` を選択します。
 
