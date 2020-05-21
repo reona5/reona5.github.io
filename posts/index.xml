@@ -65,7 +65,7 @@
 
   <span class="n">using</span> <span class="no">PrintExtension</span>
 
-  <span class="nb">puts</span> <span class="c1"># =&gt; &#39;puts!!!&#39;</span>
+  <span class="nb">puts</span> <span class="c1"># =&gt; &#34;puts!!!&#34;</span>
 <span class="k">end</span>
 
 <span class="nb">puts</span> <span class="c1"># =&gt; nil</span>
@@ -98,6 +98,7 @@
 </code></pre></div><p><img src="../images/2020-05-21-12-28-22.png" alt="">
 moduleをclassにincludeすることで、継承チェーンで言うとclassの真上にmoduleが挿入され、それより上のチェーンは押し上げます。
 includeでなくprependを使えば、classの下にmoduleが挿入されます。</p>
+<p>ObjectクラスはKernelモジュールを継承しているので、Kernelにメソッドを追加することでカーネルメソッドが全てのオブジェクトで使えるようになります。</p>
 <p>オブジェクトのメソッドはクラス（モジュール）に住んでおり、継承チェーンの中で複数のクラスが同名のメソッドを持っていた場合は、先に呼ばれたクラスのメソッドが使わます。
 userの <code>print</code> がどのクラスのメソッドなのか探索する際には、Userクラスから上に向かって調べていくとよいでしょう。</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pry<span class="o">(</span>main<span class="o">)</span>&gt; Kernel.methods.grep<span class="o">(</span>/print/<span class="o">)</span>
@@ -112,8 +113,12 @@ userの <code>print</code> がどのクラスのメソッドなのか探索す�
 <li>メソッドを定義する際は、メソッドのレシーバが <code>self</code> となる。
 <ul>
 <li>メソッド定義の外（クラスやモジュールの中）での <code>self</code> は、そのクラス自身が <code>self</code> になる。</li>
-<li><code>self</code> は省略可能。省略した場合も、レシーバが <code>self</code> のメソッドだとされる</li>
-<li>自分以外のオブジェクトを呼び出す際には明示的にレシーバにそのオブジェクトを指定する必要がある。一方で、privateメソッドは明示的にレシーバを指定して呼び出すことはできない。そのため、privateメソッドは自分以外は呼び出すことができない。</li>
+<li><code>self</code> は省略可能。省略した場合も、レシーバが <code>self</code> のメソッドだとされる。</li>
+<li>自分以外のオブジェクトを呼び出す際には明示的にレシーバにそのオブジェクトを指定する必要がある。一方で、privateメソッドは明示的にレシーバを指定して呼び出すことはできない。そのため、privateメソッドは自分以外は呼び出すことができない。
+<ul>
+<li><code>Object#send</code> を使うことで、privateメソッドにアクセス可能</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
