@@ -6,8 +6,131 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>Copyright since 2020 Reona Shimada All Rights Reserved.</copyright>
-		<lastBuildDate>Mon, 18 May 2020 11:38:45 +0900</lastBuildDate>
+		<lastBuildDate>Wed, 20 May 2020 10:23:44 +0900</lastBuildDate>
 		<atom:link href="https://reona5.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>メタプログラミングRuby 1-3章</title>
+			<link>https://reona5.github.io/posts/2020/0520_metaprograming_ruby/</link>
+			<pubDate>Wed, 20 May 2020 10:23:44 +0900</pubDate>
+			
+			<guid>https://reona5.github.io/posts/2020/0520_metaprograming_ruby/</guid>
+			<description>今回はしばらく積読となっていたメタプログラミングRubyを読んだので、内容についてまとめていきます。 想定読者 想定読者については以下のように書</description>
+			<content type="html"><![CDATA[<p>今回はしばらく積読となっていたメタプログラミングRubyを読んだので、内容についてまとめていきます。</p>
+<h4 id="想定読者">想定読者</h4>
+<p>想定読者については以下のように書かれていました。</p>
+<ul>
+<li>最初の章のコードを何の問題もなく理解できるひと # いくつもサンプルコードがでてくるので割愛します。</li>
+<li>配列を繰り返すのにどのようなコードを書くか？
+<ul>
+<li><code>each</code> メソッドを思い浮かべたなら文章を読み進めるだけのRubyの知識がある。</li>
+<li><code>for</code> 文を思い浮かべたならRuby初心者 → 初心者でもRuby入門書を読みつつメタプロに入門できる</li>
+</ul>
+</li>
+<li>RubyやRuby on Railsの内部の動きを深く理解したい人</li>
+</ul>
+<p>個人的にはRubyの開発プロジェクト経験がある方なら読めると思いました。</p>
+<h4 id="本書でできること">本書でできること</h4>
+<p>本のタイトル通りですが、<strong>Rubyを使ったメタプログラミング</strong> ができるようになります。
+メタプログラミングとはなんぞや？という話ですが、それも本書で詳しく解説されています。
+また、メタプログラミングをするためにRubyやRuby on Railsの内部の動きを探っていくことで言語仕様の理解が深まります。</p>
+<h2 id="1章頭文字m">1章　頭文字M</h2>
+<p>冒頭で「 <strong>メタプログラミングとは、コードを記述するコードを記述することである。</strong> 」と書かれています。
+また途中には「 <strong>メタプログラミングとは、言語要素を実行時に操作するコードを記述することである。</strong> 」と書かれています。</p>
+<p>この定義の例として、Active Recordが挙げられています。
+例えばRubyでMovieクラスがあるとして、Movieクラスのオブジェクト内部の変数を読み書きしたい場合はアクセサメソッドを用意する必要があります。
+しかし、ActiveRecord::Baseを継承することで、コード実行時にアクセサメソッドを定義してくれます。
+これが先程挙げた、<strong>言語要素を実行時に操作するコードを記述する</strong>を表していますね。</p>
+<p>Rubyはスクリプト言語であり、コンパイルをしなくてもいいので実行時に言語要素の殆どにアクセスが可能です。だから、コード実行時にメソッドを定義したり、もともとの定義を書き換えたりできます。メタプログラミングと非常に相性の良い言語がRubyであり、メタプログラミングを習得することでRubyの力をより引き出すことができます。</p>
+<h2 id="2章月曜日オブジェクトモデル">2章　月曜日：オブジェクトモデル</h2>
+<p>この章からは主人公のボブとメンターのビルの対話形式で進行していきます。</p>
+<ul>
+<li>classキーワードで既存のクラスを再オープンして、その場で変更を加えることができる。 =&gt; <strong>オープンクラス</strong></li>
+<li>オープンクラスの性質を利用して既存クラスにメソッドを追加したり、既にクラスに定義されているメソッドを再定義する。 =&gt; <strong>モンキーパッチ</strong>
+<ul>
+<li>モンキーパッチをすると、以後そのクラスを使う際にも定義が変わってしまうので非常に影響が大きい。Refinementsを使うと、ファイルやモジュール定義が終わるところまでにパッチを当てるスコープを制限することができる。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">module</span> <span class="nn">PrintExtension</span>
+  <span class="n">refine</span> <span class="no">Kernel</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nf">puts</span>
+      <span class="s1">&#39;puts!!!&#39;</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">User</span>
+  <span class="nb">puts</span> <span class="c1"># =&gt; nil</span>
+
+  <span class="n">using</span> <span class="no">PrintExtension</span>
+
+  <span class="nb">puts</span> <span class="c1"># =&gt; &#39;puts!!!&#39;</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="c1"># =&gt; nil</span>
+</code></pre></div><p>上は極端な例だが、Refinementsを使えばメソッドのオーバーライドによる予期しないバグを防ぐことができるかもしれないですね。</p>
+<ul>
+<li>インスタンスメソッドは <code>#method</code> 、クラスメソッドは<code>.method</code> で表す。
+<ul>
+<li>例えばクラスやオブジェクトが <code>method</code> を持っているか調べる際は、 <code>obj.methods.grep(/me/)</code> を使う。</li>
+</ul>
+</li>
+<li>クラスは <code>BasicObject</code> まで続く継承チェーンがある。</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">User</span>
+  <span class="kp">include</span> <span class="no">Animal</span>
+  <span class="kp">include</span> <span class="no">Person</span>
+<span class="k">end</span>
+
+<span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span>
+<span class="n">user</span><span class="o">.</span><span class="n">print</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pry<span class="o">(</span>main<span class="o">)</span>&gt; User.ancestors
+<span class="o">=</span>&gt; <span class="o">[</span>User,
+ Person,
+ Animal,
+ Object,
+ PP::ObjectMixin,
+ Kernel,
+ BasicObject<span class="o">]</span>
+
+// PP::ObjectMixinはpryが勝手に用意した整形用の定数でirbでは表示されない
+</code></pre></div><p><img src="../images/2020-05-21-12-28-22.png" alt="">
+moduleをclassにincludeすることで、継承チェーンで言うとclassの真上にmoduleが挿入され、それより上のチェーンは押し上げます。
+includeでなくprependを使えば、classの下にmoduleが挿入されます。</p>
+<p>オブジェクトのメソッドはクラス（モジュール）に住んでおり、継承チェーンの中で複数のクラスが同名のメソッドを持っていた場合は、先に呼ばれたクラスのメソッドが使わます。
+userの <code>print</code> がどのクラスのメソッドなのか探索する際には、Userクラスから上に向かって調べていくとよいでしょう。</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pry<span class="o">(</span>main<span class="o">)</span>&gt; Kernel.methods.grep<span class="o">(</span>/print/<span class="o">)</span>
+<span class="o">=</span>&gt; <span class="o">[</span>:sprintf,
+ :printf,
+ :print,
+ :pretty_print,
+ :pretty_print_cycle,
+ :pretty_print_instance_variables,
+ :pretty_print_inspect<span class="o">]</span>
+</code></pre></div><ul>
+<li>メソッドを定義する際は、メソッドのレシーバが <code>self</code> となる。
+<ul>
+<li>メソッド定義の外（クラスやモジュールの中）での <code>self</code> は、そのクラス自身が <code>self</code> になる。</li>
+<li><code>self</code> は省略可能。省略した場合も、レシーバが <code>self</code> のメソッドだとされる</li>
+<li>自分以外のオブジェクトを呼び出す際には明示的にレシーバにそのオブジェクトを指定する必要がある。一方で、privateメソッドは明示的にレシーバを指定して呼び出すことはできない。そのため、privateメソッドは自分以外は呼び出すことができない。</li>
+</ul>
+</li>
+</ul>
+<h2 id="3章-火曜日メソッド">3章 火曜日：メソッド</h2>
+<ul>
+<li>動的メソッド <code>Object#send</code> を呼び出すことで、メソッドを引数に取ることができる。</li>
+<li><code>Module#define_method</code> を使えば、メソッドをその場で定義できる。（実行時にメソッド名を決定できる）</li>
+<li>BasicObjectクラスにはメソッドが見つからなかった際に最終的に呼び出される <code>method_missing</code> が用意されている。
+<code>method_missing</code> を再定義することで、存在しないメソッドを呼び出すことができる。 =&gt; <strong>ゴーストメソッド</strong></li>
+</ul>
+<p>「可能であれば動的メソッドを使い、仕方がなければゴーストメソッドを使う」</p>
+<p>と締めくくられていましたが、 <code>#send</code> もクラスやモデル、テーブル等の設計次第では使う場面はあまりない気がしました。（それでもメソッドを引数にとれるのは便利。。）
+メタプロRubyのサンプルコードはテーブル設計がひどく、そのようなプロジェクトにあたった際の対症療法としてはいいかもしれません。 <code>#send</code> を使いたいと思った時点で設計を見直してもいいかもしれないですね。
+とはいえRubyは非常に柔軟で強力な言語だと再認識しました。</p>
+<p>メタプロはとりあえず「難しそう」という先入観が強く後回しにしていましたが、読み始めるとひたすらにRubyという言語を掘り下げていく内容で、夢中になって読み進めることができています。これ以降の章も別の記事でまとめたいと思います。</p>
+]]></content>
+		</item>
 		
 		<item>
 			<title>静的サイトジェネレータで作成したブログを検索結果に表示する</title>
