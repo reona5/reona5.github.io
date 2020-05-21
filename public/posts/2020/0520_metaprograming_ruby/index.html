@@ -11,7 +11,7 @@
 <meta itemprop="description" content="今回はしばらく積読となっていたメタプログラミングRubyを読んだので、内容についてまとめていきます。 想定読者 想定読者については以下のように書">
 <meta itemprop="datePublished" content="2020-05-20T10:23:44&#43;09:00" />
 <meta itemprop="dateModified" content="2020-05-21T13:51:02&#43;09:00" />
-<meta itemprop="wordCount" content="2450">
+<meta itemprop="wordCount" content="2557">
 
 
 
@@ -121,7 +121,7 @@
 
   <span class="n">using</span> <span class="no">PrintExtension</span>
 
-  <span class="nb">puts</span> <span class="c1"># =&gt; &#39;puts!!!&#39;</span>
+  <span class="nb">puts</span> <span class="c1"># =&gt; &#34;puts!!!&#34;</span>
 <span class="k">end</span>
 
 <span class="nb">puts</span> <span class="c1"># =&gt; nil</span>
@@ -154,6 +154,7 @@
 </code></pre></div><p><img src="../images/2020-05-21-12-28-22.png" alt="">
 moduleをclassにincludeすることで、継承チェーンで言うとclassの真上にmoduleが挿入され、それより上のチェーンは押し上げます。
 includeでなくprependを使えば、classの下にmoduleが挿入されます。</p>
+<p>ObjectクラスはKernelモジュールを継承しているので、Kernelにメソッドを追加することでカーネルメソッドが全てのオブジェクトで使えるようになります。</p>
 <p>オブジェクトのメソッドはクラス（モジュール）に住んでおり、継承チェーンの中で複数のクラスが同名のメソッドを持っていた場合は、先に呼ばれたクラスのメソッドが使わます。
 userの <code>print</code> がどのクラスのメソッドなのか探索する際には、Userクラスから上に向かって調べていくとよいでしょう。</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pry<span class="o">(</span>main<span class="o">)</span>&gt; Kernel.methods.grep<span class="o">(</span>/print/<span class="o">)</span>
@@ -168,8 +169,12 @@ userの <code>print</code> がどのクラスのメソッドなのか探索す�
 <li>メソッドを定義する際は、メソッドのレシーバが <code>self</code> となる。
 <ul>
 <li>メソッド定義の外（クラスやモジュールの中）での <code>self</code> は、そのクラス自身が <code>self</code> になる。</li>
-<li><code>self</code> は省略可能。省略した場合も、レシーバが <code>self</code> のメソッドだとされる</li>
-<li>自分以外のオブジェクトを呼び出す際には明示的にレシーバにそのオブジェクトを指定する必要がある。一方で、privateメソッドは明示的にレシーバを指定して呼び出すことはできない。そのため、privateメソッドは自分以外は呼び出すことができない。</li>
+<li><code>self</code> は省略可能。省略した場合も、レシーバが <code>self</code> のメソッドだとされる。</li>
+<li>自分以外のオブジェクトを呼び出す際には明示的にレシーバにそのオブジェクトを指定する必要がある。一方で、privateメソッドは明示的にレシーバを指定して呼び出すことはできない。そのため、privateメソッドは自分以外は呼び出すことができない。
+<ul>
+<li><code>Object#send</code> を使うことで、privateメソッドにアクセス可能</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -192,7 +197,7 @@ userの <code>print</code> がどのクラスのメソッドなのか探索す�
 				<p>
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://reona5.github.io/tags/%E6%8A%80%E8%A1%93%E6%9B%B8">技術書</a></span><span class="tag"><a href="https://reona5.github.io/tags/ruby">Ruby</a></span><span class="tag"><a href="https://reona5.github.io/tags/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91">オブジェクト指向</a></span><span class="tag"><a href="https://reona5.github.io/tags/%E3%83%A1%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0">メタプログラミング</a></span>
 				</p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2450 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2557 Words</p>
 				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-05-20 10:23 &#43;0900</p>
 				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-commit"><circle cx="12" cy="12" r="4"></circle><line x1="1.05" y1="12" x2="7" y2="12"></line><line x1="17.01" y1="12" x2="22.96" y2="12"></line></svg><a href="https://github.com/reona5.github.iocb572b9b729bb139aab23854bea4f74e9e770ca4" target="_blank" rel="noopener">cb572b9</a> @ 2020-05-21</p>
 			</footer>
