@@ -1,39 +1,40 @@
 'use strict';
 
 module.exports = {
-  url: 'https://lumen.netlify.com',
+  url: 'https://reona5.github.io/',
   pathPrefix: '/',
-  title: 'Blog by John Doe',
-  subtitle: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
-  copyright: '© All rights reserved.',
+  title: 'Blog by Reona Shimada',
+  subtitle: '',
+  copyright: '© 2020 Reona Shimada All Rights Reserved.',
   disqusShortname: '',
   postsPerPage: 4,
-  googleAnalyticsId: 'UA-73379983-2',
+  googleAnalyticsId: 'UA-146202958-1',
   useKatex: false,
   menu: [
     {
       label: 'Articles',
-      path: '/'
+      path: '/',
     },
     {
       label: 'About me',
-      path: '/pages/about'
+      path: '/pages/about',
     },
     {
       label: 'Contact me',
-      path: '/pages/contacts'
-    }
+      path: 'https://mail.google.com/mail/?view=cm&to=shimada.reona@gmail.com',
+    },
   ],
   author: {
-    name: 'John Doe',
+    name: 'Reona Shimada',
     photo: '/photo.jpg',
-    bio: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
+    bio:
+      'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
     contacts: {
       email: '',
-      facebook: '#',
+      facebook: 'reona.shimada.3/',
       telegram: '#',
-      twitter: '#',
-      github: '#',
+      twitter: 'reona_5',
+      github: 'reona5',
       rss: '',
       vkontakte: '',
       linkedin: '#',
@@ -44,6 +45,6 @@ module.exports = {
       codepen: '',
       youtube: '',
       soundcloud: '',
-    }
-  }
+    },
+  },
 };
