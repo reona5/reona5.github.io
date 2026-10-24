@@ -1,0 +1,7 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>talks</title>
+<script>
+const m = location.pathname.match(/^\/([a-z0-9-]+)\/(\d+)\/?$/);
+location.replace(m ? `/${m[1]}/#/${m[2]}` : "/");
+</script>

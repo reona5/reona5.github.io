@@ -1,0 +1,1 @@
+import{bt as e}from"./slidev/useNav-t_rIUg0v.js";import"./index-CCxkEGxs.js";function t(t){return e.themeConfig?.template===t}export{t};
